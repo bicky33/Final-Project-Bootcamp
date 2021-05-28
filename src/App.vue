@@ -168,12 +168,12 @@ export default {
       setCheckToken: 'auth/checkToken'
     }),
     ...mapMutations({
-      setUser: 'auth/setuser'
+      setUser: 'auth/setUser'
     }), 
 
     login(){
       const config = {
-        url: this.apiDomain + '/api/auth/login',
+        url: this.apiDomain + '/api/v2/auth/login',
         method: 'POST',
         data: {
           email: this.email, 
