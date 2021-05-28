@@ -15,7 +15,7 @@ export default({
         }
     },
     actions:{
-        setToken({commit, dispatch}, data){
+        setToken({commit, dispatch}, data) {
             commit('setToken', data)
             dispatch('checkToken', data)
         },
