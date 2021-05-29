@@ -3,7 +3,8 @@
 
   <v-app>
     <Alert/>
-    <v-navigation-drawer app v-model="drawer">
+    <Dialog/>
+    <v-navigation-drawer app v-model="drawer"  v-show="!guest">  
       <!-- sidebar -->
     </v-navigation-drawer>
 
@@ -76,7 +77,7 @@
             </v-card-actions>
           </v-card>
         </v-menu>
-            <v-btn light>
+            <v-btn light @click="register">
               Register
             </v-btn>
       </div>
@@ -145,12 +146,14 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Alert from './components/Alert'
+import Dialog from './components/Dialog'
 export default {
   components:{
-    Alert
+    Alert,
+    Dialog
   },
   data:() => ({
-    drawer: true,
+    drawer: false,
     menu  : false,
     email: '',
     emailRules: [
@@ -165,7 +168,8 @@ export default {
     ...mapActions({
       setToken: 'auth/setToken', 
       setAlert: 'alert/set',
-      setCheckToken: 'auth/checkToken'
+      setCheckToken: 'auth/checkToken',
+      setComponent: 'dialog/setComponent'
     }),
     ...mapMutations({
       setUser: 'auth/setUser'
@@ -186,13 +190,13 @@ export default {
             this.setAlert({
                 status: true,
                 color: 'success', 
-                text: 'Selamat anda berhasil login'
+                text: 'Login Success'
             })
         }).catch(()=>{
             this.setAlert({
                 status: true,
                 color: 'error', 
-                text: 'Selamat anda gagal login'
+                text: 'Failed Login'
             })
         })
     },
@@ -222,6 +226,9 @@ export default {
             text: 'Cie gagal logout',
           })
         })
+    },
+    register(){
+      this.setComponent({ component: 'register' })
     }
   },
   computed:{

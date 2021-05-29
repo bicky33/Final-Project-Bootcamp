@@ -1,6 +1,6 @@
 <template>
     <keep-alive>
-        <v-dialog v-model="dialog" fullscreen hide-overlay persistent transition="dialog-bottom-transition">
+        <v-dialog v-model="dialog" hide-overlay persistent max-width="500px" transition="dialog-bottom-transition">
             <component :is="currentComponent" @closed="setDialogStatus" />
         </v-dialog>
     </keep-alive>
@@ -9,7 +9,8 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
     components: {
-        login: ()=>import('./Login')
+        login: ()=>import('./Login'),
+        register: ()=>import('./Register')
     },
     computed:{
         ...mapGetters({
@@ -28,7 +29,7 @@ export default {
     methods:{
         ...mapActions({
             setDialogStatus: 'dialog/setStatus'
-        })
+        }), 
     }
 
 }
