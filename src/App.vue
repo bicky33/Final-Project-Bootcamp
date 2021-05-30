@@ -4,8 +4,31 @@
   <v-app>
     <Alert/>
     <Dialog/>
-    <v-navigation-drawer app v-model="drawer"  v-show="!guest">  
+    <v-navigation-drawer app v-model="drawer">  
       <!-- sidebar -->
+      <v-list
+        nav 
+        dense>
+        <v-list-item-group
+          v-model="selectedItem"
+          color="primary"
+        >
+          <v-list-item
+            v-for="(item, i) in menus"
+            :key="i"
+            :to="item.path"
+          >
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title v-text="item.name"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+
+      </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app color="primary" dark>
@@ -137,10 +160,37 @@
         <router-view></router-view>
       </v-container>
     </v-main>
+    <v-footer
+      v-bind="localAttrs"
+      padless
+    >
+      <v-card
+        flat
+        tile
+        width="100%"
+        class="primary text-center"
+        dark
+      >
+        <v-card-text>
+          <v-btn
+            v-for="icon in icons"
+            :key="icon"
+            class="mx-4"
+            icon
+          >
+            <v-icon size="24px">
+              {{ icon }}
+            </v-icon>
+          </v-btn>
+        </v-card-text>
 
-    <v-footer app>
-      <!-- -->
-    </v-footer>
+        <v-divider></v-divider>
+
+        <v-card-text class="white--text">
+          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        </v-card-text>
+      </v-card>
+    </v-footer> 
   </v-app>
 </template>
 <script>
@@ -155,6 +205,13 @@ export default {
   data:() => ({
     drawer: false,
     menu  : false,
+    icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
+      ],
+    padless: false,
     email: '',
     emailRules: [
         v => !!v || 'E-mail is required',
@@ -162,7 +219,12 @@ export default {
     ],
     showPassword: false,
     password: '',
-    apiDomain: 'https://demo-api-vue.sanbercloud.com'
+    apiDomain: 'https://demo-api-vue.sanbercloud.com', 
+    menus: [
+      {name: 'Home', icon:'mdi-home', path:'/'},
+      {name: 'Blogs', icon:'mdi-blogger', path:'/user/blog'},
+    ],
+    selectedItem: 1,
   }), 
   methods:{
     ...mapActions({
@@ -192,6 +254,7 @@ export default {
                 color: 'success', 
                 text: 'Login Success'
             })
+            this.$router.push({name:'UserBlog'})
         }).catch(()=>{
             this.setAlert({
                 status: true,
@@ -236,7 +299,18 @@ export default {
       guest : 'auth/guest',
       user  : 'auth/user',
       token : 'auth/token'
-    })
+    }),
+    localAttrs () {
+        const attrs = {}
+
+        if (this.variant === 'default') {
+          attrs.absolute = false
+          attrs.fixed = false
+        } else {
+          attrs[this.variant] = true
+        }
+        return attrs
+      },
   },
   mounted(){
     if(this.token){
