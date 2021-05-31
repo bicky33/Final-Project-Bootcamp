@@ -37,8 +37,7 @@
                         <v-badge
                             icon="mdi-file-edit"
                             color="primary"
-                            overlap
-                            v-show="params.editItem">
+                            overlap>
                             <v-btn
                                 color="blue darken-1"
                                 text 
