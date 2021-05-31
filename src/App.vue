@@ -90,13 +90,18 @@
               >
                 Cancel
               </v-btn>
-              <v-btn
-                color="primary"
-                text
-                @click="login"
-              >
-                Login
-              </v-btn>
+
+              <router-link
+                to="/user/blog">
+                <v-btn
+                  @click="login"
+                  color="primary"
+                  text
+                >
+                  Login
+                </v-btn>
+              </router-link>
+
             </v-card-actions>
           </v-card>
         </v-menu>
@@ -254,7 +259,6 @@ export default {
                 color: 'success', 
                 text: 'Login Success'
             })
-            this.$router.push({name:'UserBlog'})
         }).catch(()=>{
             this.setAlert({
                 status: true,

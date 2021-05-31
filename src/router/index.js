@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import About from '../views/About.vue'
 import store from '../store/index.js'
 
 Vue.use(VueRouter)
@@ -14,11 +13,6 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About
-  },
-  {
     path: '/user/blog',
     name: 'UserBlog',
     // route level code-splitting
@@ -26,7 +20,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/UserBlogs.vue'),
     beforeEnter: (to, from, next) => {
-      console.log(store.getters['auth/token']);
+      console.log(store.getters['auth/token'])
       if(!store.getters['auth/token']) {
           next(from.fullPath);
       } else {
