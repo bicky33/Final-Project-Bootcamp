@@ -29,4 +29,4 @@ https://youtu.be/Kx2e9z8AXJI
 ### Apps Screenshoot
 ![Alt text](/screenshoot/1.png?raw=true "Optional Title")
 ![Alt text](/screenshoot/2.png?raw=true "Optional Title")
-![Alt text](/relative/3.png?raw=true "Optional Title")
+![Alt text](/screenshoot/3.png?raw=true "Optional Title")
